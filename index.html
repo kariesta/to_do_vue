@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>To vue!</title>
+  <script src="https://unpkg.com/vue"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+<body>
+  <div id="app">
+    <h1>{{ title }}</h1>
+    <ul>
+      <task-item v-for="item in tasks" v-bind:task="item" v-bind:key="item.id">
+      </task-item>
+    </ul>
+    <input v-model="message">
+    <button v-on:click="add_task">add task</button>
+  </div>
+
+  <script>
+    Vue.component('task-item', {
+      props: ['task'],
+      template: '<li><input type="checkbox" v-bind:checked="task.done">{{task.text}}</li>'
+    })
+
+    var id_count = 3;
+
+    var app = new Vue({
+      el: '#app',
+      data: {
+        title: 'My tasks!',
+        tasks: [
+          {id: 0,
+          text: "water plants",
+          done: false},
+          {id: 1,
+          text: "vacuum",
+          done: true},
+          {id: 2,
+          text: "do taxes",
+          done: false}
+        ],
+        message: "commit to git"
+      },
+      methods: {
+        add_task: function () {
+          this.tasks.push({id: id_count, text: this.message, done: false});
+          id_count+=1;
+        }
+      }
+    })
+  </script>
+</body>
+</html>
+
+<!--template: '<li><input type="checkbox" value="{{task.done}}">{{task.text}}</li>'
+<button v-on:click="add task">Reverse Message</button>
+-->
