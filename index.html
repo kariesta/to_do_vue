@@ -11,26 +11,33 @@
   <div id="app">
     <h1>{{ title }}</h1>
     <ul>
-      <task-item v-for="item in tasks" v-bind:task="item" v-bind:key="item.id">
+      <task-item v-for="item in vue_to_do_tasks" v-bind:task="item" v-bind:key="item.id">
       </task-item>
     </ul>
-    <input v-model="message">
+    <input v-model="new_tast">
     <button v-on:click="add_task">add task</button>
   </div>
 
   <script>
+    alert('This site stores tasks on your computer');
     Vue.component('task-item', {
       props: ['task'],
-      template: '<li><input type="checkbox" v-bind:checked="task.done">{{task.text}}</li>'
+      template: '<li><input type="checkbox" v-bind:checked="task.done">{{task.text}}<button v-on:click="remove_task(task.id)">x</button></li>',
+      methods: {
+        remove_task: function (id) {
+          this.$parent.remove_task(id);
+        }
+      }
     })
 
-    var id_count = 3;
+
+    var new_id = -1;
 
     var app = new Vue({
       el: '#app',
       data: {
         title: 'My tasks!',
-        tasks: [
+        vue_to_do_tasks: [
           {id: 0,
           text: "water plants",
           done: false},
@@ -41,19 +48,31 @@
           text: "do taxes",
           done: false}
         ],
-        message: "commit to git"
+        new_tast: "commit to git"
       },
       methods: {
         add_task: function () {
-          this.tasks.push({id: id_count, text: this.message, done: false});
-          id_count+=1;
+          //console.log(this._data.vue_to_do_tasks);
+          if(new_id === -1){
+            new_id = this._data.vue_to_do_tasks[ this._data.vue_to_do_tasks.length-1].id+1;
+          } else {
+            new_id += 1;
+          }
+          //console.log(new_id);
+          this._data.vue_to_do_tasks.push({id: new_id, text: this.new_tast, done: false});
+          localStorage.setItem('vue_to_do_tasks', JSON.stringify(this._data.vue_to_do_tasks));
+        },
+        remove_task: function(id) {
+          this._data.vue_to_do_tasks = this._data.vue_to_do_tasks.filter(function(item) { return item.id != id});
+          //console.log(id)
+          localStorage.setItem('vue_to_do_tasks', JSON.stringify(this._data.vue_to_do_tasks));
         }
       }
     })
+    if(localStorage.getItem('vue_to_do_tasks')) {
+      this.app._data.vue_to_do_tasks=JSON.parse(localStorage.getItem('vue_to_do_tasks'));
+    }
+    //localStorage.removeItem('vue_to_do_tasks')
   </script>
 </body>
 </html>
-
-<!--template: '<li><input type="checkbox" value="{{task.done}}">{{task.text}}</li>'
-<button v-on:click="add task">Reverse Message</button>
--->
