@@ -1,0 +1,71 @@
+body{
+  background-color: #99cc00;
+  font-family: "Lucida Console", Courier, monospace;
+}
+
+input{
+  font-family: "Lucida Console", Courier, monospace;
+  color:  #263300;
+}
+
+button{
+  font-family: "Lucida Console", Courier, monospace;
+  color:  #263300;
+;
+}
+
+#app{
+  background-color:  #f2ffcc;
+  color:  #263300;
+  padding: 1rem;
+
+}
+
+#app h1{
+    color:  #263300;
+}
+
+#app ul li{
+    color:  #263300;
+    padding: 1rem;
+}
+
+#app input{
+    background-color:  #f9ffe6;
+    color:  #263300;
+}
+
+#app input[type=checkbox]:before {
+         content: "";
+         display: block;
+         width: inherit;
+         height: inherit;
+         border: 2px solid #555555;
+         border-radius: 2px;
+         background-color: #f9ffe6;
+         position: absolute;
+         top: inherit;
+         left: inherit;
+}
+
+#app input[type=checkbox]:checked:after{
+    background-color:  #99cc00;
+    color:  #99cc00;
+    content: "";
+    display: block;
+    border: solid #263300;
+    border-top: solid #99cc00;
+    border-left: solid #99cc00;
+    border-width: 2px;
+    width: inherit;
+    height: inherit;
+    border-radius: 3px;
+    position: absolute;
+    top: inherit;
+    left: inherit;
+}
+
+#app button{
+    background-color:  #f9ffe6;
+    color:  #263300;
+}
